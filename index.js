@@ -7,15 +7,15 @@ const response = require('./response')
 
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => {
+app.get('/getProducts', (req, res) => {
     const query = "SELECT * FROM products"
     db.query(query, (error, result) => {
         response(200, "success", result, res)
     })
 })
 
-app.get('/byid', (req, res) => {
-    const sql = `SELECT * FROM item WHERE item_id = ${req.query.id}`
+app.get('/getProduct', (req, res) => {
+    const sql = `SELECT * FROM products WHERE id = ${req.query.id}`
     db.query(sql, (error, result) => {
         if(result == [])
             response(500, "Data Not Found", result, res)
@@ -24,9 +24,9 @@ app.get('/byid', (req, res) => {
     })
 })
 
-app.post('/login', (req, res) => {
-    console.log({ params: req.body })
-    res.send('Hello World!')
+app.post('/createProduct', (req, res) => {
+    console.log( req.body )
+    res.send('post test')
 })
 
 app.listen(port, () => {
