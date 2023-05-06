@@ -2,22 +2,16 @@ const express = require('express');
 const db = require('../config/connection');
 const products = express.Router();
 const response = require('../response');
+const { getProducts, getProduct, createProduct } = require('../controllers/productsController')
 
 products.route('/getProducts').get(async (req, res) => {
-    const query = "SELECT * FROM products"
-    await db.query(query, (error, result) => {
-        response(200, "success", result, res)
-    })
+    const productList = await getProducts()
+    response(200, "success", productList, res)
 })
 
 products.route('/getProduct').get(async (req, res) => {
-    const sql = `SELECT * FROM products WHERE id = ${req.query.id}`
-    db.query(sql, (error, result) => {
-        if(result == [])
-            response(500, "Data Not Found", result, res)
-        else
-            response(200, "success", result, res)
-    })
+    const productList = await getProduct(req.query.id)
+    response(200, "success", productList, res)
 })
 
 products.route('/').post(async (req, res) => {
@@ -25,10 +19,9 @@ products.route('/').post(async (req, res) => {
     let data = {
         name, price, stock
     }
-
-    const insProduct = await db.query('insert into products set ?', [data])
-
-    res.send('success created')
+    
+    const create = await createProduct(data)
+    response(200, "success", create, res)
 })
 
 module.exports = products;
