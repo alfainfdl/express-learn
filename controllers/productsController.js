@@ -6,7 +6,7 @@ exports.getProducts = async() => {
 }
 
 exports.getProduct = async(data) => {
-    const query = await db.query(`SELECT * FROM products WHERE id = ${data}`)
+    const query = await db.query('SELECT * FROM products WHERE id = ?', [data])
     return query
 }
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const transactions = express.Router();
 const response = require('../helpers/response');
-const { getTransactions } = require('../controllers/transactionsController')
+const { getTransactions, createTransactions } = require('../controllers/transactionsController')
 const { randomOrderNumber } = require('../helpers/utils')
 
 transactions.route('/').get(async (req, res) => {
@@ -10,14 +10,14 @@ transactions.route('/').get(async (req, res) => {
 })
 
 transactions.route('/').post(async (req, res) => {
-    const { total_price, paid_amount } = req.body
-    const data = {
+    const { total_price, paid_amount, products } = req.body
+    const order = {
         no_order : randomOrderNumber(), 
         total_price, 
         paid_amount
     }
     
-    const create = await createTransactions(data)
+    const create = await createTransactions(order, products)
     response(200, "success", create, res)
 })
 
