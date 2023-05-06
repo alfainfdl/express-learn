@@ -2,13 +2,13 @@ const express = require('express')
 const app = express()
 const port = 3000
 const bodyParser = require('body-parser')
-const db = require('./connection')
+const db = require('./config/connection')
 const response = require('./response')
 
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-    const query = "SELECT * FROM item"
+    const query = "SELECT * FROM products"
     db.query(query, (error, result) => {
         response(200, "success", result, res)
     })
