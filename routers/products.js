@@ -1,5 +1,4 @@
 const express = require('express');
-const db = require('../config/connection');
 const products = express.Router();
 const response = require('../response');
 const { getProducts, getProduct, createProduct } = require('../controllers/productsController')
@@ -16,7 +15,7 @@ products.route('/getProduct').get(async (req, res) => {
 
 products.route('/').post(async (req, res) => {
     const { name, price, stock } = req.body
-    let data = {
+    const data = {
         name, price, stock
     }
     

@@ -11,7 +11,7 @@ exports.getProduct = async(data) => {
 }
 
 exports.createProduct = async(data) => {
-    const query = await db.query('insert into products set ?', [data])
+    const query = await db.query('INSERT INTO products SET ?', [data])
     if(!query.affectedRows) return query.message
 
     return "product created"
