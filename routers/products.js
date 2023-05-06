@@ -1,6 +1,6 @@
 const express = require('express');
 const products = express.Router();
-const response = require('../response');
+const response = require('../helpers/response');
 const { getProducts, getProduct, createProduct } = require('../controllers/productsController')
 
 products.route('/getProducts').get(async (req, res) => {

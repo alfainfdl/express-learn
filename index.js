@@ -4,7 +4,7 @@ const port = 3000
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const db = require('./config/connection')
-const response = require('./response')
+const response = require('./helpers/response')
 
 app.use(cors())
 app.use(bodyParser.json())
